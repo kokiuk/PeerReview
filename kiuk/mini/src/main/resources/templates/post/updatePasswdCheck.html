@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MiniProject</title>
+</head>
+<body>
+<h1>Update Password Check</h1>
+<form action="update" method="post">
+    비밀번호: <input type="text" name="passwd">
+    <input type="hidden" name="id" th:value="${posts.id}">
+    <input type="button" value="취소" th:onclick="|location.href='@{/post/read/{id}(id=${posts.id})}'|">
+    <input type="submit">
+</form>
+
+</body>
+</html>

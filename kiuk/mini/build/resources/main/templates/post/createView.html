@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>MiniProject</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<h1>게시글 작성</h1>
+
+<form action="create" method="post" onsubmit="return check();">
+
+    <label>
+        게시판:
+        <select name="board_id" id="board_id">
+            <option value="0">-- 선택하세요 --</option>
+            <option
+                    th:each="board: ${boards}"
+                    th:value="${board.id}"
+                    th:selected="${board.id == id}"
+            >
+                [[${board.board}]]
+            </option>
+        </select>
+    </label><br>
+    제목 : <input type="text" id="title" name="title"><br>
+    내용 : <textarea id="content" name="content" oninput="hashTag()"></textarea><br>
+    비밀번호 : <input type="text" id="passwd" name="passwd"><br>
+
+    <input type="hidden" id="hashtagsInput" name="hashtags">
+
+    <input type="submit">
+    <input type="button" onclick="history.back()" value="뒤로가기">
+</form>
+<script>
+    function check(){
+
+        if ($('#title').val().length < 3){
+            alert("제목을 3글자 이상 적어주세요");
+            return false;
+        }else if ($('#content').val().length < 5){
+            alert("내용을 5자 이상 적어주세요");
+            return false;
+        }else if ($('#passwd').val().length < 3){
+            alert("비밀번호를 3자 이상 입력해주세요");
+            return false;
+        }else if ($('#board_id').val() == "0"){
+            alert("게시판을 선택해 주세요");
+            return false;
+        }
+        else {
+            var hashtags = hashTag();
+            $('#hashtagsInput').val(hashtags);
+            alert("게시글이 작성 되었습니다");
+            return true;
+        }
+    }
+
+    function hashTag(){
+        var content = $('#content').val();
+        var hashtags = content.match(/#[\w가-힣]+/g);
+
+        // if (hashtags){
+        //     alert(hashtags);
+        //     console.log("hashtag" + hashtags.join(', '));
+        // }
+        return hashtags ? hashtags.join(',') : "";
+    }
+</script>
+</body>
+</html>
