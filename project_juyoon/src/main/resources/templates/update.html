@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>update</title>
+</head>
+<body>
+<form th:action="@{/board/{id}/update(id=${boardList.id})}" method="post">
+  <div class="mb-2">
+    <label>
+      Title: <input type="text" name="title" th:value="${boardList.boardTitle}">
+    </label>
+  </div>
+  <div class="mb-2">
+    <label>
+      Contents: <input type="text" name="contents" th:value="${boardList.boardContents}">
+    </label>
+  </div>
+  <div class="mb-2">
+    <label>
+      Password: <input type="password" name="password">
+    </label>
+    <div class="mb-2">
+      <input type="submit">
+    </div>
+  </div>
+  <a th:href="@{/board/{id}(id=${boardList.id})}">Back</a>
+</form>
+</body>
+</html>

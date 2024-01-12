@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <title>home</title>
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+          margin: 20px;
+      }
+
+      h2 {
+          color: #333;
+      }
+
+      div {
+          margin-bottom: 10px;
+      }
+
+      p {
+          margin: 0;
+      }
+
+      a {
+          text-decoration: none;
+          color: #007BFF;
+          font-weight: bold;
+      }
+
+      a:hover {
+          text-decoration: underline;
+      }
+
+      button {
+          background-color: #007BFF;
+          color: #fff;
+          border: none;
+          padding: 10px;
+          cursor: pointer;
+          font-weight: bold;
+      }
+
+      button:hover {
+          background-color: #0056b3;
+      }
+
+      .links {
+          margin-top: 20px;
+      }
+
+      .links a {
+          margin-right: 20px;
+          color: #333;
+      }
+  </style>
+</head>
+<body>
+<h3>주제별 게시판</h3>
+<div th:if="${ofList.isEmpty()}">
+  <p>No Article Here...</p>
+</div>
+<div th:unless="${ofList.isEmpty()}" th:each="boardOfList: ${ofList}">
+  <p>[[${boardOfList.id}]] <a th:href="@{/boardOfList/{id}(id=${boardOfList.id})}">[[${boardOfList.listOfArticle}]]</a></p>
+</div>
+<br>
+<button onclick="saveReq()">글쓰기</button>
+<br>
+<br>
+<br>
+<a href="/">home</a>
+</body>
+<script>
+    const saveReq = () => {
+        location.href = "/board/save";
+    }
+</script>
+</html>

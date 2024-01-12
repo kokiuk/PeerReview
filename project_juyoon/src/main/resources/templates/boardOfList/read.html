@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+          margin: 20px;
+      }
+
+      p {
+          margin: 5px 0;
+      }
+
+      button {
+          background-color: #4CAF50;
+          color: white;
+          padding: 10px 15px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+      }
+  </style>
+</head>
+<body>
+<div th:if="${boardList.inBoard.isEmpty()}">
+  <p>게시글이 존재하지 않습니다.</p>
+</div>
+<div th:unless="${boardList.inBoard.isEmpty()}">
+  <p th:each="board: ${boardList.inBoard}">
+    <a th:href="@{/board/{id}(id=${board.id})}">[[${board.boardTitle}]]</a>
+  </p>
+</div>
+<br>
+<br>
+<button onclick="homeReq()">뒤로가기</button>
+</body>
+<script>
+  const homeReq = () => {
+      location.href = "/boardOfList"
+  }
+</script>
+</html>
