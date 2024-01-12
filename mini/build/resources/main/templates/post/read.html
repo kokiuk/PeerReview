@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>MiniProject</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<h1>[[${posts.id}]].[[${posts.title}]]</h1>
+<p>내용 : [[${posts.content}]]</p>
+<br>
+<br>
+<br>
+<p>해시태그 :
+    <span th:each="hashtag: ${posts.hashtags}">
+        <a th:href="@{/post/search/{hashtag}(hashtag=${hashtag.hashWord})}" th:text="${hashtag.hashWord}"></a>
+    </span>
+</p>
+<hr>
+<div id="comment">
+    <div th:if="${comments.isEmpty()}">댓글이 없어요...</div>
+    <div th:unless="${comments.isEmpty()}" th:each="comment: ${comments}">
+        <p>[[${comment.id}]].[[${comment.content}]]
+            <input type="button" th:onclick="|location.href='@{/comment/deleteCheck/{id}(id=${comment.id})}'|" value="삭제">
+        </p>
+    </div>
+    <hr>
+    <div>
+        <form action="/comment/create" method="post" onsubmit="return check()">
+            내용: <textarea name="content" id="content" placeholder="댓글입력"></textarea>
+            비밀번호 : <input type="password" name="password" id="password">
+            <input type="hidden" name="postId" th:value="${posts.id}">
+            <input type="submit" value="댓글 작성">
+        </form>
+    </div>
+</div>
+<hr>
+<div>
+    <input type="button" th:onclick="|location.href='@{/board/{id}(id=${posts.board.id})}'|" value="뒤로가기">
+    <form action="/post/updateCheck" method="post">
+        <input type="hidden" name="id" th:value="${posts.id}">
+        <input type="hidden" name="passwd" th:value="${posts.password}">
+        <input type="hidden" name="title" th:value="${posts.title}">
+        <input type="hidden" name="content" th:value="${posts.content}">
+        <input type="submit" value="수정">
+    </form>
+    <form action="/post/deleteCheck" method="post">
+        <input type="hidden" name="id" th:value="${posts.id}">
+        <input type="hidden" name="passwd" th:value="${posts.password}">
+        <input type="submit" value="삭제">
+    </form>
+</div>
+
+<script>
+    function check(){
+        if ($('#password').val().length <3){
+            alert("비밀번호를 3자리 이상 입력해주세요");
+            return false;
+        }else if ($('#content').val().length < 5){
+            alert("내용을 5글자 이상 입력해주세요");
+            return false;
+        }
+    }
+</script>
+</body>
+
+</html>
