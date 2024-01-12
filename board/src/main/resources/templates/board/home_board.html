@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+</head>
+<body>
+<h1>게시판</h1>
+<div th:if="${boards.isEmpty()}">
+    <P>아무런 게시판이 없습니다.</P>
+</div>
+<div th:unless="${boards.isEmpty()}" th:each="board: ${boards}">
+    <p>[[${board.id}]]. <a th:href="@{/board/{boardId}
+            (boardId=${board.id})}">[[${board.boardName}]]</a></p>
+</div>
+<h1>전체 게시글</h1>
+<div th:if="${articles.isEmpty()}">
+    <P>현재 게시글이 없습니다.</P>
+</div>
+<div th:unless="${articles.isEmpty()}" th:each="article: ${articles}">
+    <p>[[${article.id}]]. <a th:href="@{/board/article/{id}
+            (id=${article.id})}">[[${article.title}]]</a></p>
+</div>
+
+<a href="/board/create_view">Create</a>
+</body>
+</html>
