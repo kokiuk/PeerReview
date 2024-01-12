@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <title>[[${board.name}]]</title>
+</head>
+<body>
+<!--목차-->
+<h1>[[${board.name}]]</h1>
+
+<div th:if="${titles.isEmpty()}">
+  <p>새로운 게시글을 만들어 주세요</p>
+</div>
+
+<!--게시글이 존재함 board_id = 4-->
+<div th:unless="${titles.isEmpty()}" th:each="title: ${titles}">
+<!-- 게시판 board.id기준으로 나눠주기  -->
+  <a th:if="${title.board_id}==${board.id}">
+    <p>[[${title.id}]].
+      <a th:href="@{/boards/{id}/comment(id=${board.id})}">[[${title.title}]]</a>
+
+<!-- 수정 버튼 <a> / <p> / <a> 에러?-->
+      <a th:href="@{/article/{id}/update(id=${title.id})}"><input type="submit" value="수정"></a>
+
+    </p>
+    <!-- 삭제 버튼 / 수정 버튼 옆에다 만들고 싶은데 아래 생김...-->
+    <form th:action="@{/article/{id}/delete(id=${title.id})}" method="post">
+      <input type="submit" value="      삭제      ">
+    </form>
+  </a>
+</div>
+
+<br>
+<a th:href="@{/boards/{id}/article(id=${board.id})}">글 작성</a>
+
+<br>
+<br>
+<a href="/boards">뒤로</a>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>게시글 수정하기</h1>
+
+
+<form th:action="@{/article/{id}/updateView (id=${titles.id})}"  method="post">
+  <div>
+    <label>
+      게시판 선택:
+      <select name="boardID">
+        <option
+                th:each="board: ${boards}"
+                th:value="${board.id}"
+
+        >
+          [[${board.name}]]
+        </option>
+      </select>
+    </label>
+  </div>
+
+  <div>
+    <label>
+      제목: <input type="text" name="title" th:value="${titles.title}" >
+    </label>
+  </div>
+
+
+  <div>
+    <label>
+      내용: <input type="text" name="content" th:value="${titles.content}">
+    </label>
+  </div>
+
+  <div>
+    <label>
+      비밀번호: <input type="number" name="password" th:value="${titles.password}">
+    </label>
+  </div>
+
+  <div>
+    <input type="submit" value="완료">
+  </div>
+</form>
+
+<a th:href="@{/boards/{id}(id=${titles.board_id})}">뒤로</a>
+</body>
+</html>
