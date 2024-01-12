@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MiniProject</title>
+</head>
+<body>
+<h1>게시글 수정</h1>
+<form action="/post/updateFinal" method="post">
+    <label>
+        게시판:
+        <select name="board_id">
+            <option
+                    th:each="board: ${boards}"
+                    th:value="${board.id}"
+            >
+                [[${board.board}]]
+            </option>
+        </select>
+    </label><br>
+    <input type="hidden" name="id" th:value="${posts.id}">
+    제목 : <input type="text" id="title" name="title" th:value="${posts.title}"><br>
+    내용 : <textarea id="content" name="content">[[${posts.content}]]</textarea><br>
+    비밀번호 : <input type="text" id="passwd" name="passwd" th:value="${posts.password}"><br>
+    <input type="submit">
+    <input type="button" th:onclick="|location.href='@{/post/read/{id}(id=${posts.id})}'|" value="뒤로가기">
+</form>
+</body>
+</html>
