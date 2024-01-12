@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <title>글 작성</title>
+</head>
+<body>
+<h1>게시글 만들기</h1>
+
+<form action="/boards/create" method="post">
+  <div>
+    <label>
+      게시판 선택:
+      <select name="boardID">
+        <option
+                th:each="board: ${boards}"
+                th:value="${board.id}"
+
+        >
+          [[${board.name}]]
+        </option>
+      </select>
+    </label>
+  </div>
+
+  <div>
+    <label>
+      제목: <input type="text" name="title">
+    </label>
+  </div>
+
+
+  <div>
+    <label>
+      내용: <input type="text" name="content">
+    </label>
+  </div>
+
+  <div>
+    <label>
+      비밀번호: <input type="number" name="password">
+    </label>
+  </div>
+
+  <div>
+    <input type="submit" value="완료">
+  </div>
+
+</form>
+</body>
+</html>
