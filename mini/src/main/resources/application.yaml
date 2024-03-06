@@ -1,19 +1,18 @@
-
 spring:
+  mvc:
+    static-path-pattern: /static/**
   datasource:
     url: jdbc:sqlite:db.sqlite
     driver-class-name: org.sqlite.JDBC
+    username: sa
+    password: password
+
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: create
     database-platform: org.hibernate.community.dialect.SQLiteDialect
-    defer-datasource-initialization: true
-  sql:
-    init:
-      mode: always
+    show-sql: true
 
-  logging:
-    level:
-      org:
-        thymeleaf: DEBUG
+jwt:
+  secret: aaaabbbsdifqbvaesoioegwaaaabbbsdifqbvaesoioegwaaaabbbsdifqbvaes
+
